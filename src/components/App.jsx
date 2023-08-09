@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PostElements from './PostElements';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -11,7 +12,9 @@ function App() {
   }, []);
 
   return (
-    <div>{}</div>
+    <ul className="">
+      <PostElements posts={posts}/>
+    </ul>
   );
 }
 
