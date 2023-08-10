@@ -11,13 +11,20 @@ const PostElements = ({ posts }) => {
 
     // Return JSX element.
     return (
-      <li key={id}>
-        <p>Title: {title}</p>
-        <p>Publish Date: {publishDate}</p>
-        <p>Name: {name}</p>
-        <p>Avatar: {avatar}</p>
-        <p>Summary: {summary}</p>
-        <ul>{categoryList}</ul>
+      <li key={id} className='text-[#E6EDF3] mx-14 p-10 border-solid border-[1px] border-[#30363d] rounded-md'>
+        <span className='inline-block w-18'>
+          <img src={avatar} alt="Avatar of user" className="rounded-full inline-block mr-5"/>
+          <p className="text-2xl inline-block align-middle">{name}</p>
+        </span>
+        <span className='inline-block w-full'>
+          <br/>
+          <p className="text-lg font-medium">{title}</p>
+          <div className="border-solid border-[1px] border-[#30363d] w-full"/>
+          <p>{summary}</p>
+          <br/>
+          <p className="text-xs font-thin ">{publishDate}</p>
+          {/* <ul>{categoryList}</ul> */}
+        </span>
       </li>
     )
   })

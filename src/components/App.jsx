@@ -12,9 +12,11 @@ function App() {
   }, []);
 
   return (
-    <ul className="list-disc space-y-8 p-12 border-2">
-      <PostElements posts={posts}/>
-    </ul>
+    <div className='bg-[#0d1117] !m-0'>
+      <ul className="space-y-8 p-8">
+        <PostElements posts={posts}/>
+      </ul>
+    </div>
   );
 }
 
