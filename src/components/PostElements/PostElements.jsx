@@ -19,7 +19,7 @@ const PostElements = ({ posts }) => {
         <span className='inline-block w-full'>
           <br/>
           <p className="text-lg font-medium">{title}</p>
-          <div className="border-solid border-[1px] border-[#30363d] w-full"/>
+          <hr className='border-[#30363d]'/>
           <p>{summary}</p>
           <br/>
           <CategoryList categories={categories}/>
