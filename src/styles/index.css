@@ -7,9 +7,16 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #0d1117;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.ant-btn-primary {
+  background-color: #1677ff;
+  border-color: #1677ff;
+  color: #fff;
 }
