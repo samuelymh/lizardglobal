@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // Components
 import PostElements from './PostElements/PostElements';
-import { Checkbox, Modal } from 'antd';
+import { Checkbox, Modal, Pagination, ConfigProvider } from 'antd';
 import filter from '../assets/filter.png';
 
 function App() {
@@ -11,6 +11,9 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [checkedList, setCheckedList] = useState([]);
+  const [startPost, setStartPost] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const PAGE_SIZE = 10;
 
   // Shows modal when user clicks filter icon.
   const showModal = () => {
@@ -28,6 +31,9 @@ function App() {
       setFilteredPosts(posts);
     else
       setFilteredPosts(filteredPosts);
+    // Reset pagination to first page after filtering.
+    setCurrentPage(1);
+    setStartPost(0);
     setIsModalOpen(false);
   };
 
@@ -40,6 +46,12 @@ function App() {
   const onChange = (checkedValues => {
     setCheckedList(checkedValues);
   });
+
+  const paginationOnChange = (page, pageSize) => {
+    const startPost = (page - 1) * pageSize;
+    setCurrentPage(page);
+    setStartPost(startPost);
+  };
 
 
   // Find all unique categories from posts.
@@ -81,8 +93,28 @@ function App() {
       <Modal title="Filter by category" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <Checkbox.Group className='text-[#E6EDF3] grid grid-cols-2 max-[497px]:grid-cols-1' onChange={onChange} options={categories}/>
       </Modal>
+      <div className='flex justify-center'>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorText: '#fff',
+              colorTextDisabled: '#8c8c8c',
+              fontSize: '1.25rem',
+            },               
+          }}
+        >
+          <Pagination
+            current={currentPage}
+            defaultCurrent={1}
+            total={filteredPosts.length}
+            pageSize={PAGE_SIZE} 
+            onChange={paginationOnChange}
+            className='text-lg'
+          />
+        </ConfigProvider>
+      </div>
       <ul className="space-y-8 p-8">
-        <PostElements posts={filteredPosts}/>
+        <PostElements posts={filteredPosts.slice(startPost, startPost + PAGE_SIZE)}/>
       </ul>
     </div>
   );
