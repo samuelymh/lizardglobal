@@ -6,6 +6,7 @@ import { Checkbox, Modal, Pagination, ConfigProvider } from 'antd';
 import filter from '../assets/filter.png';
 
 function App() {
+  // Local state
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,6 +15,15 @@ function App() {
   const [startPost, setStartPost] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const PAGE_SIZE = 10;
+
+  // Custom theme config for antd components.
+  const antdTheme = {
+    token: {
+      colorText: '#fff',
+      colorTextDisabled: '#8c8c8c',
+      fontSize: '1.25rem',
+    },               
+  };
 
   // Shows modal when user clicks filter icon.
   const showModal = () => {
@@ -94,18 +104,9 @@ function App() {
         <Checkbox.Group className='text-[#E6EDF3] grid grid-cols-2 max-[497px]:grid-cols-1' onChange={onChange} options={categories}/>
       </Modal>
       <div className='flex justify-center'>
-        <ConfigProvider
-          theme={{
-            token: {
-              colorText: '#fff',
-              colorTextDisabled: '#8c8c8c',
-              fontSize: '1.25rem',
-            },               
-          }}
-        >
+        <ConfigProvider theme={antdTheme}>
           <Pagination
             current={currentPage}
-            defaultCurrent={1}
             total={filteredPosts.length}
             pageSize={PAGE_SIZE} 
             onChange={paginationOnChange}
@@ -116,7 +117,18 @@ function App() {
       <ul className="space-y-8 p-8">
         <PostElements posts={filteredPosts.slice(startPost, startPost + PAGE_SIZE)}/>
       </ul>
-    </div>
+        <div className='flex justify-center pb-4'>
+          <ConfigProvider theme={antdTheme}>
+            <Pagination
+              current={currentPage}
+              total={filteredPosts.length}
+              pageSize={PAGE_SIZE} 
+              onChange={paginationOnChange}
+              className='text-lg'
+            />
+          </ConfigProvider>
+        </div>
+      </div>
   );
 }
 
